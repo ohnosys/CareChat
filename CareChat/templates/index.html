@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ static_url('css/jquery.ui.chatbox.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ static_url('css/style.css') }}" />
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+    <script src="{{ static_url('js/jquery.ui.chatbox.js') }}"></script>
+
+    <script>
+        var socket = new WebSocket('ws://' + location.host + '/chat');
+        function sendAction(img_path, msg) {
+            var message = {
+                img_path: img_path,
+                message: msg
+            };
+            socket.send(JSON.stringify(message));
+        }
+        socket.onopen = function(data) {
+        }
+        socket.onclose = function() {
+        }
+        socket.onmessage = function(event) {
+            var data = JSON.parse(event.data);
+            if ('messages' in data) {
+                var messages = data.messages;
+                for (var i=0; i<messages.length; i++) {
+                    $("#chat_div").chatbox("option", "boxManager").addMsg(messages[i].img_path, messages[i].message, false);
+                }
+            } else {
+                $("#chat_div").chatbox("option", "boxManager").addMsg(data.img_path, data.message, false);
+            }
+        }
+        $(document).ready(function() {
+            $("#chat_div").chatbox(
+                {id : "chat_div",
+                 title : "Chat De Tornado",
+                 user : "hoge",
+                 offset: 0,
+                 width: 500,
+                 messageSent: function(id, user, msg){
+                     var img_path = $('#face').attr('src');
+                     this.boxManager.addMsg(img_path, msg, true);
+                     sendAction(img_path, msg);
+            }});
+        });
+    </script>
+</head>
+<body>
+    <img src="{{ img_path }}" id="face" style="visibility:hidden">
+    <div id="chat_div" class="chat"></div>
+</body>
+</html>
+
+<!--
+<!-- extendsをつかってbase.htmlを継承して作成 / blockをつかって内容を書き換える-->
+{% extends "base.html" %}
+{% block title %}トップページ{% end %}
+{% block content %}
+    <h1>プログラミング言語の紹介</h1>
+    <p>
+        こんにちは！このサイトではプログラミング言語の紹介をしています。
+        具体的には、Python、PHP、Rubyの３つです。
+        上のメニューから興味のある言語を選択して詳細をご覧ください。
+    </p>
+{% end %}
+
+
+<!--
+
+<html>
+  <head>
+    <title>Hello Tornado</title>
+
+    <!-- static_url('style.css')にはstyle.cssのパスが入る
+    メソッド内に指定したファイルへの相対パスがURLに変換される、
+    URLに反感する際にはApplicationオブジェクトで設定したstatic_pathの値が使われる（staticディレクトリ）
+
+    static_url()メソッドによる変換例
+    static_url('style.css')の場合は/static/style.css
+    static_url('css/style.css')の場合は/static/css/style.cssに変換される
+    -->
+
+   <link rel="stylesheet" href="{{ static_url('style.css') }}" />
+  </head>
+  <body>
+    <!-- name にはrenderメソッドから渡された値が入る-->
+    <h1>Hello, {{ name }}!</h1>
+  </body>
+</html>
+
+
+-->
+-->
