@@ -1,22 +1,21 @@
-// TODO: implement destroy()
+// http://reason.cs.illinois.edu/wenpu1/chatbox.html
+
 (function($) {
     $.widget("ui.chatbox", {
         options: {
-            id: null, //id for the DOM element
-            title: null, // title of the chatbox
-            user: null, // can be anything associated with this chatbox
+            id: null, // DOM element
+            title: null, // chatbox
+            user: null, // chatboxと紐付け
             hidden: false,
-            offset: 0, // relative to right edge of the browser window
-            width: 300, // width of the chatbox
+            offset: 0, // ウィンドウブラウザ右端寄せ
+            width: 300, // chatboxの幅
 	    messageSent: function(id, user, msg) {
                 // override this
 		    this.boxManager.addMsg(user.first_name, msg);
             },
             boxClosed: function(id) {
-            }, // called when the close icon is clicked
+            }, // クローズアイコンがクリックされたら呼ぶ
             boxManager: {
-                // thanks to the widget factory facility
-                // similar to http://alexsexton.com/?p=51
                 init: function(elem) {
                     this.elem = elem;
                 },
@@ -34,10 +33,10 @@
 			var image = document.createElement("img");
 			image.src = peer;
 			if (is_left) {
-			    $(image).css("float", "left");
+			    $(image).css("float", "right"); // 送信時アイコン位置
 			    $(image).css("margin-left", "15px");
 			} else {
-			    $(image).css("float", "right");
+			    $(image).css("float", "left");
 			    $(image).css("margin-right", "15px");
 			}
 			e.appendChild(image);
@@ -49,9 +48,9 @@
                     $(msgElement).text(msg);
 
 		    if (is_left) {
-			$(msgElement).addClass("balloon-left");
-		    } else {
 			$(msgElement).addClass("balloon-right");
+		    } else {
+			$(msgElement).addClass("balloon-left");
 		    }
                     e.appendChild(msgElement);
 		    var br = $("<br style='clear:both'/>");
@@ -105,8 +104,6 @@
                          )
                 .attr('outline', 0)
                 .focusin(function() {
-                    // ui-state-highlight is not really helpful here
-                    //self.uiChatbox.removeClass('ui-state-highlight');
                     self.uiChatboxTitlebar.addClass('ui-state-focus');
                 })
                 .focusout(function() {
@@ -117,7 +114,7 @@
                 .addClass('ui-widget-header ' +
                           'ui-corner-top ' +
                           'ui-chatbox-titlebar ' +
-                          'ui-dialog-header' // take advantage of dialog header style
+                          'ui-dialog-header' 
                          )
                 .click(function(event) {
                     self.toggleContent(event);
@@ -205,12 +202,9 @@
                     uiChatboxInputBox.removeClass('ui-chatbox-input-focus');
                 });
 
-            // disable selection
             uiChatboxTitlebar.find('*').add(uiChatboxTitlebar).disableSelection();
 
-            // switch focus to input box when whatever clicked
             uiChatboxContent.children().click(function() {
-                // click on any children, set focus on input box
                 self.uiChatboxInputBox.focus();
             });
 
@@ -250,7 +244,7 @@
             this.uiChatboxInputBox.css("width", (width - 6) + "px");
         },
         _position: function(offset) {
-            this.uiChatbox.css("right", offset); //change right or left
+            this.uiChatbox.css("right", offset); // boxの位置
         }
     });
 }(jQuery));
