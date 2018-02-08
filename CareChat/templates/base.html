@@ -6,23 +6,25 @@
     <link rel="stylesheet" type="text/css" href="{{ static_url('css/style.css') }}" />
     <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="http://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
-    <script src="{{ static_url('js/jquery.ui.chatbox.js') }}"></script>  
+    <script src="{{ static_url('js/jquery.ui.chatbox.js') }}"></script>
 
     <script>
-        <!-- WebSocket接続を開く / wsは接続用URLスキーマ → 後でwssにしたい -->
-        var socket = new WebSocket('ws://' + location.host + '/chat');
+        <!-- WebSocket接続を開くためにWebsocketコンストラクタを呼び出す / wsは接続用URLスキーマ → 後でwssにしたい -->
+        // Application()が動くと引数指定されているbase.htmlが動く
+        var connection = new WebSocket('ws://' + location.host + '/chat');
         function sendAction(img_path, msg) {
             var message = {
                 img_path: img_path,
                 message: msg
             };
-            socket.send(JSON.stringify(message));
+            //サーバーに接続（openイベントが起動）したら、send()メソッドを使用してサーバーへのデータ送信を開始
+            connection.send(JSON.stringify(message)); // サーバーもクライアントに
         }
-        socket.onopen = function(data) {
+        connection.onopen = function(data) { // Websocket接続成功時の処理
         }
-        socket.onclose = function() {
+        connection.onclose = function() { // Websocket接続切断時の処理
         }
-        socket.onmessage = function(event) {
+        connection.onmessage = function(event) { // メッセージを受信した際の処理
             var data = JSON.parse(event.data);
             if ('messages' in data) {
                 var messages = data.messages;
