@@ -1,0 +1,7 @@
+
+[ec2-user@ip-172-31-32-77 CareChat]$ python query.py
+1 ed Ed Jones edspassword
+2 wendy Wendy Williams foobar
+3 mary Mary Contrary xxg527
+4 fred Fred Flinstone blah
+[ec2-user@ip-172-31-32-77 CareChat]$

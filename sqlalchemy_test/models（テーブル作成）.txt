@@ -1,0 +1,49 @@
+[ec2-user@ip-172-31-32-77 CareChat]$ python models.py
+2018-02-16 05:36:39,295 INFO sqlalchemy.engine.base.Engine SHOW VARIABLES LIKE 'sql_mode'
+2018-02-16 05:36:39,296 INFO sqlalchemy.engine.base.Engine {}
+2018-02-16 05:36:39,302 INFO sqlalchemy.engine.base.Engine SELECT DATABASE()
+2018-02-16 05:36:39,302 INFO sqlalchemy.engine.base.Engine {}
+2018-02-16 05:36:39,314 INFO sqlalchemy.engine.base.Engine SELECT CAST('test plain returns' AS CHAR(60)) AS anon_1
+2018-02-16 05:36:39,314 INFO sqlalchemy.engine.base.Engine {}
+2018-02-16 05:36:39,320 INFO sqlalchemy.engine.base.Engine SELECT CAST('test unicode returns' AS CHAR(60)) AS anon_1
+2018-02-16 05:36:39,320 INFO sqlalchemy.engine.base.Engine {}
+2018-02-16 05:36:39,329 INFO sqlalchemy.engine.base.Engine DESCRIBE `users`
+2018-02-16 05:36:39,329 INFO sqlalchemy.engine.base.Engine {}
+2018-02-16 05:36:39,332 INFO sqlalchemy.engine.base.Engine ROLLBACK
+2018-02-16 05:36:39,339 INFO sqlalchemy.engine.base.Engine
+CREATE TABLE users (
+        id INTEGER NOT NULL AUTO_INCREMENT,
+        name VARCHAR(15),
+        fullname VARCHAR(30),
+        password VARCHAR(100),
+        PRIMARY KEY (id)
+)
+
+
+2018-02-16 05:36:39,339 INFO sqlalchemy.engine.base.Engine {}
+2018-02-16 05:36:39,358 INFO sqlalchemy.engine.base.Engine COMMIT
+[ec2-user@ip-172-31-32-77 CareChat]$
+
+
+
+””””””””””””
+
+mysql> show tables;
++---------------------+
+| Tables_in_exampledb |
++---------------------+
+| USERS               |
+| authtable           |
+| categories          |
+| example_table       |
+| test                |
+| userinfos           |
+| users               |
++---------------------+
+7 rows in set (0.01 sec)
+
+mysql> select * from users;
+Empty set (0.00 sec)
+
+
+

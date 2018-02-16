@@ -1,0 +1,37 @@
+
+[ec2-user@ip-172-31-32-77 CareChat]$ python add.py
+2018-02-16 05:41:23,318 INFO sqlalchemy.engine.base.Engine SHOW VARIABLES LIKE 'sql_mode'
+2018-02-16 05:41:23,319 INFO sqlalchemy.engine.base.Engine {}
+2018-02-16 05:41:23,325 INFO sqlalchemy.engine.base.Engine SELECT DATABASE()
+2018-02-16 05:41:23,325 INFO sqlalchemy.engine.base.Engine {}
+2018-02-16 05:41:23,337 INFO sqlalchemy.engine.base.Engine SELECT CAST('test plain returns' AS CHAR(60)) AS anon_1
+2018-02-16 05:41:23,337 INFO sqlalchemy.engine.base.Engine {}
+2018-02-16 05:41:23,343 INFO sqlalchemy.engine.base.Engine SELECT CAST('test unicode returns' AS CHAR(60)) AS anon_1
+2018-02-16 05:41:23,343 INFO sqlalchemy.engine.base.Engine {}
+2018-02-16 05:41:23,349 INFO sqlalchemy.engine.base.Engine BEGIN (implicit)
+2018-02-16 05:41:23,353 INFO sqlalchemy.engine.base.Engine INSERT INTO users (name, fullname, password) VALUES (%(name)s, %(fullname)s, %(password)s)
+2018-02-16 05:41:23,354 INFO sqlalchemy.engine.base.Engine {'name': 'ed', 'fullname': 'Ed Jones', 'password': 'edspassword'}
+2018-02-16 05:41:23,359 INFO sqlalchemy.engine.base.Engine INSERT INTO users (name, fullname, password) VALUES (%(name)s, %(fullname)s, %(password)s)
+2018-02-16 05:41:23,360 INFO sqlalchemy.engine.base.Engine {'name': 'wendy', 'fullname': 'Wendy Williams', 'password': 'foobar'}
+2018-02-16 05:41:23,366 INFO sqlalchemy.engine.base.Engine INSERT INTO users (name, fullname, password) VALUES (%(name)s, %(fullname)s, %(password)s)
+2018-02-16 05:41:23,366 INFO sqlalchemy.engine.base.Engine {'name': 'mary', 'fullname': 'Mary Contrary', 'password': 'xxg527'}
+2018-02-16 05:41:23,371 INFO sqlalchemy.engine.base.Engine INSERT INTO users (name, fullname, password) VALUES (%(name)s, %(fullname)s, %(password)s)
+2018-02-16 05:41:23,372 INFO sqlalchemy.engine.base.Engine {'name': 'fred', 'fullname': 'Fred Flinstone', 'password': 'blah'}
+2018-02-16 05:41:23,375 INFO sqlalchemy.engine.base.Engine COMMIT
+[ec2-user@ip-172-31-32-77 CareChat]$
+
+
+”””””””””””
+
+
+mysql> select * from users;
++----+-------+----------------+-------------+
+| id | name  | fullname       | password    |
++----+-------+----------------+-------------+
+|  1 | ed    | Ed Jones       | edspassword |
+|  2 | wendy | Wendy Williams | foobar      |
+|  3 | mary  | Mary Contrary  | xxg527      |
+|  4 | fred  | Fred Flinstone | blah        |
++----+-------+----------------+-------------+
+4 rows in set (0.01 sec)
+

@@ -1,0 +1,43 @@
+
+[ec2-user@ip-172-31-32-77 CareChat]$ python update.py
+2018-02-16 05:44:39,496 INFO sqlalchemy.engine.base.Engine SHOW VARIABLES LIKE 'sql_mode'
+2018-02-16 05:44:39,497 INFO sqlalchemy.engine.base.Engine {}
+2018-02-16 05:44:39,503 INFO sqlalchemy.engine.base.Engine SELECT DATABASE()
+2018-02-16 05:44:39,504 INFO sqlalchemy.engine.base.Engine {}
+2018-02-16 05:44:39,515 INFO sqlalchemy.engine.base.Engine SELECT CAST('test plain returns' AS CHAR(60)) AS anon_1
+2018-02-16 05:44:39,515 INFO sqlalchemy.engine.base.Engine {}
+2018-02-16 05:44:39,521 INFO sqlalchemy.engine.base.Engine SELECT CAST('test unicode returns' AS CHAR(60)) AS anon_1
+2018-02-16 05:44:39,521 INFO sqlalchemy.engine.base.Engine {}
+2018-02-16 05:44:39,527 INFO sqlalchemy.engine.base.Engine BEGIN (implicit)
+2018-02-16 05:44:39,531 INFO sqlalchemy.engine.base.Engine SELECT users.id AS users_id, users.name AS users_name, users.fullname AS users_fullname, users.password AS users_password
+FROM users
+WHERE users.id = %(id_1)s
+2018-02-16 05:44:39,531 INFO sqlalchemy.engine.base.Engine {'id_1': 1}
+2018-02-16 05:44:39,538 INFO sqlalchemy.engine.base.Engine UPDATE users SET name=%(name)s WHERE users.id = %(users_id)s
+2018-02-16 05:44:39,539 INFO sqlalchemy.engine.base.Engine {'name': 'torina', 'users_id': 1}
+2018-02-16 05:44:39,550 INFO sqlalchemy.engine.base.Engine COMMIT
+
+
+
+””””””””””
+mysql> select * from users;
++----+-------+----------------+-------------+
+| id | name  | fullname       | password    |
++----+-------+----------------+-------------+
+|  1 | ed    | Ed Jones       | edspassword |
+|  2 | wendy | Wendy Williams | foobar      |
+|  3 | mary  | Mary Contrary  | xxg527      |
+|  4 | fred  | Fred Flinstone | blah        |
++----+-------+----------------+-------------+
+4 rows in set (0.01 sec)
+
+mysql> select * from users;
++----+--------+----------------+-------------+
+| id | name   | fullname       | password    |
++----+--------+----------------+-------------+
+|  1 | torina | Ed Jones       | edspassword |
+|  2 | wendy  | Wendy Williams | foobar      |
+|  3 | mary   | Mary Contrary  | xxg527      |
+|  4 | fred   | Fred Flinstone | blah        |
++----+--------+----------------+-------------+
+4 rows in set (0.00 sec)

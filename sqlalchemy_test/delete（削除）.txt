@@ -1,0 +1,42 @@
+
+[ec2-user@ip-172-31-32-77 CareChat]$ python delete.py
+2018-02-16 05:47:39,749 INFO sqlalchemy.engine.base.Engine SHOW VARIABLES LIKE 'sql_mode'
+2018-02-16 05:47:39,749 INFO sqlalchemy.engine.base.Engine {}
+2018-02-16 05:47:39,756 INFO sqlalchemy.engine.base.Engine SELECT DATABASE()
+2018-02-16 05:47:39,756 INFO sqlalchemy.engine.base.Engine {}
+2018-02-16 05:47:39,767 INFO sqlalchemy.engine.base.Engine SELECT CAST('test plain returns' AS CHAR(60)) AS anon_1
+2018-02-16 05:47:39,768 INFO sqlalchemy.engine.base.Engine {}
+2018-02-16 05:47:39,773 INFO sqlalchemy.engine.base.Engine SELECT CAST('test unicode returns' AS CHAR(60)) AS anon_1
+2018-02-16 05:47:39,774 INFO sqlalchemy.engine.base.Engine {}
+2018-02-16 05:47:39,780 INFO sqlalchemy.engine.base.Engine BEGIN (implicit)
+2018-02-16 05:47:39,784 INFO sqlalchemy.engine.base.Engine SELECT users.id AS users_id, users.name AS users_name, users.fullname AS users_fullname, users.password AS users_password
+FROM users
+WHERE users.id = %(id_1)s
+2018-02-16 05:47:39,784 INFO sqlalchemy.engine.base.Engine {'id_1': 1}
+2018-02-16 05:47:39,791 INFO sqlalchemy.engine.base.Engine DELETE FROM users WHERE users.id = %(id)s
+2018-02-16 05:47:39,791 INFO sqlalchemy.engine.base.Engine {'id': 1}
+2018-02-16 05:47:39,794 INFO sqlalchemy.engine.base.Engine COMMIT
+[ec2-user@ip-172-31-32-77 CareChat]$
+
+
+””””””””””
+mysql> select * from users;
++----+--------+----------------+-------------+
+| id | name   | fullname       | password    |
++----+--------+----------------+-------------+
+|  1 | torina | Ed Jones       | edspassword |
+|  2 | wendy  | Wendy Williams | foobar      |
+|  3 | mary   | Mary Contrary  | xxg527      |
+|  4 | fred   | Fred Flinstone | blah        |
++----+--------+----------------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from users;
++----+-------+----------------+----------+
+| id | name  | fullname       | password |
++----+-------+----------------+----------+
+|  2 | wendy | Wendy Williams | foobar   |
+|  3 | mary  | Mary Contrary  | xxg527   |
+|  4 | fred  | Fred Flinstone | blah     |
++----+-------+----------------+----------+
+3 rows in set (0.00 sec)
