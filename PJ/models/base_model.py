@@ -5,23 +5,22 @@ from backend import Backend
 
 Base = declarative_base()
 
-# models.py は モデルをORMで書くところ
-# モデルの設定ファイル↓
-# Django は models.py
-# Trnado は modelsディレクトリ内の各ファイル
-# view.py は 長くなりすぎるので分割したりロジックだけ別コードに書き出したりしている
+# 本来SQLAlchemyではテーブル定義とPythonクラス（自作）を別々に作ってマッピングだけど、
+# きっちり分けないで済むようにdeclarative_baseを利用してBaseクラスを作って継承させる
+
+# Base = declarative_base を拡張したい
+# djangolikeなmodel定義にするmixin    
+# DjangoLike DBを直接扱わなくていいように、Djangoのようにmodels.pyを作成して、そこに記述するクラスを操作することでDB操作する
 
 class DjangoLikeModelMixin(object):
-    # Base = declarative_base を拡張したい
-    # djangolikeなmodel定義にするmixin    
 
     # dclarative_base()で生成したクラスオブジェクトはモデルを書くときにテーブル名と主キーを書かないとAlchemyさんに怒られる
 
     # id は全てのクラスで使うので
     id = Column(Integer, primary_key=True)
 
-    # 例えば __tablename__ = "user" と同じ（定義するのが面倒くさいから）
-    # __tablename__ == user.py の class User を入れて小文字にしてる
+    # __tablename__ = "user" と同じ（定義するのが面倒くさいからdeclarative_base）
+    # __tablename__ == user.py の class User を入れて小文字にしてる 
     
     @declared_attri # Foreign KeyなどをMixinで定義するときに付ける必要があるデコレータ
     def __tablename__(cls):
