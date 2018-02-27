@@ -4,11 +4,11 @@ from tornado.options import define, options
 
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# Apache経由などで動作させたりするとカレントディレクトリ等の関係でうまくいかないことがあるため絶対パスで取得
 
-define('port', default=8888, help="run on the given port", type=int)
+define('port', default=8888, help="run on the given port", type=int) # 指定できるオプションを定義
 define('debug', default=True, help='debug mode')
-tornado.options.parse_command_line()
-
+tornado.options.parse_command_line() # 指定したコマンドライン解析 / ログローテートまでやってくれる
 
 settings = {}
 settings['debug'] = options.debug
